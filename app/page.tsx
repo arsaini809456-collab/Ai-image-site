@@ -7,6 +7,8 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [enhancing, setEnhancing] = useState(false);
+
 
   const canGenerate = useMemo(() => {
     return !loading && prompt.trim().length > 0;
@@ -106,6 +108,53 @@ export default function Page() {
             >
               {loading ? "Generating..." : "Generate Image"}
             </button>
+
+            <button
+              onClick={async () => {
+                if (!prompt.trim()) return;
+                setEnhancing(true);
+                setError(null);
+
+                try {
+                  const res = await fetch("/api/enhance", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ prompt: prompt.trim() }),
+                  });
+
+                  const data = (await res.json().catch(() => ({}))) as {
+                    enhancedPrompt?: string;
+                    error?: string;
+                  };
+
+                  if (!res.ok) {
+                    setError(data.error || "Failed to enhance prompt.");
+                    return;
+                  }
+
+                  if (data.enhancedPrompt) {
+                    setPrompt(data.enhancedPrompt);
+                  } else {
+                    setError("No enhanced prompt returned from the server.");
+                  }
+                } catch {
+                  setError("Something went wrong while enhancing the prompt.");
+                } finally {
+                  setEnhancing(false);
+                }
+              }}
+              disabled={enhancing || !prompt.trim()}
+              className={`inline-flex w-full items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 sm:w-auto ${
+                enhancing || !prompt.trim()
+                  ? "cursor-not-allowed opacity-60"
+                  : ""
+              }`}
+            >
+              {enhancing ? "Enhancing..." : "Enhance Prompt"}
+            </button>
+
 
             {error ? (
               <div className="rounded-2xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
