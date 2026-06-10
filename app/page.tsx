@@ -23,6 +23,8 @@ export default function Page() {
 
   async function onGenerate() {
     const trimmed = prompt.trim();
+    // Generate image ONLY (no Groq enhance here)
+
     if (!trimmed) {
       setError("Please type a prompt.");
       setImageUrl(null);
@@ -178,6 +180,7 @@ export default function Page() {
                     }),
                   });
 
+
                   const data = (await res.json().catch(() => ({}))) as {
                     enhancedPrompt?: string;
                     error?: string;
@@ -210,8 +213,12 @@ export default function Page() {
             </button>
 
             <button
-              onClick={onGenerate}
+              onClick={() => {
+                onGenerate();
+              }}
+
               disabled={!canGenerate}
+
               className={`mt-1 inline-flex w-full items-center justify-center rounded-2xl px-5 py-4 text-sm font-bold transition sm:text-base ${
                 canGenerate
                   ? "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:brightness-110"
