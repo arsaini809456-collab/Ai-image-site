@@ -86,11 +86,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Generate route error:", error);
 
-    const err = error as any;
     const message =
-      typeof err?.message === "string" ? err.message : String(err ?? "");
-    const name = typeof err?.name === "string" ? err.name : "";
+      error instanceof Error ? error.message : "Unknown error";
+    const name = error instanceof Error ? error.name : "";
     const combined = `${name} ${message}`.toLowerCase();
+
 
     const isConnectTimeout =
       combined.includes("und_err_connect_timeout") ||
