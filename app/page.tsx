@@ -82,14 +82,14 @@ export default function Page() {
     <main className="min-h-screen w-full bg-gradient-to-b from-[#050617] via-[#050617] to-[#02030a] text-white">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-4 py-14">
         <header className="mb-8 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
             <span className="bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-400 bg-clip-text text-transparent">
-              AI Image Generator
+              Pixelora AI
             </span>
           </h1>
-          <p className="mt-3 text-sm text-white/70 sm:text-base">
-            Describe your idea and generate a brand new image.
-          </p>
+            <p className="mt-3 text-sm text-white/70 sm:text-base">
+              Create stunning AI images from simple prompts.
+            </p>
         </header>
 
         <section className="w-full rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_0_80px_-20px_rgba(236,72,153,0.25)] backdrop-blur-xl">
