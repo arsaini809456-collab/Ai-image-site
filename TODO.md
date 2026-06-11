@@ -1,7 +1,7 @@
-- [ ] Gather repo context (read and search relevant files)
-- [ ] Create edit plan for app/api/generate/route.ts
-- [ ] Confirm plan with user
-- [ ] Update Hugging Face model endpoint to FLUX.1-schnell router.huggingface.co URL
-- [ ] Keep request/response structure unchanged (POST, headers, body JSON.stringify, arrayBuffer->base64, return data URL)
-- [ ] Run typecheck/lint or minimal build command if available
+- [ ] Create branch: blackboxai/remove-groq-prompt-enhancement-generate-route
+- [x] Edit `app/api/generate/route.ts` to remove all prompt enhancement/modification logic (no Groq, no aspectRatio guidance)
+- [x] Ensure `/api/generate` sends only the frontend prompt (trimmed) to Hugging Face
+- [ ] Run typecheck/lint or `npm run build` to verify Next.js build
+- [ ] Smoke test endpoints: `/api/enhance` uses Groq; `/api/generate` does not call Groq
+
 
